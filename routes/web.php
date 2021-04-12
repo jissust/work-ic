@@ -13,5 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', 'App\Http\Controllers\ComprobanteController@index');
-Route::post('/descargar', 'App\Http\Controllers\ComprobanteController@descargarComprobante');
+Route::get('/descargar', 'App\Http\Controllers\ComprobanteController@descargarComprobante');
 Route::post('/detalle', 'App\Http\Controllers\ComprobanteController@detalle');
