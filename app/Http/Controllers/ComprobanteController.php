@@ -6,6 +6,7 @@ use App\Models\Comprobante;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use QrCode;
 
 class ComprobanteController extends Controller
 {
@@ -20,8 +21,15 @@ class ComprobanteController extends Controller
     }
 
     public function descargarComprobante(){
-        $comprobanteItem = DB::table('ComprobanteFacturacionItem')->get();
-        $pdf = PDF::loadView('pdf/comprobante', $comprobanteItem);
+        QrCode::generate('Make me into a QrCode!', '../public/qrcode/qrcode.svg');
+        $image = base64_encode(file_get_contents(public_path('/qrcode/qrcode.svg')));
+
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 
+                                'isRemoteEnabled' => true,
+                                'chroot' => public_path('qrcode/')])
+                                /*->setOptions(['tempDir'=>'public_path()'])*/
+                                ->loadView('pdf/comprobante',['image' => $image]);
+
         return $pdf->download('name.pdf');
     }
 
