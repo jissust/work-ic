@@ -10,8 +10,7 @@ use QrCode;
 
 class ComprobanteController extends Controller
 {
-    public function index()
-    {
+    public function index(){
       $comprobanteItem = $this->comprobantesConDetalle();
       return view('index',compact('comprobanteItem'));
     }
@@ -28,15 +27,19 @@ class ComprobanteController extends Controller
     }
 
     public function descargarComprobante(){
-      QrCode::generate('Make me into a QrCode!', '../public/qrcode/qrcode.svg');
+      $this->generarQr();
       $image = base64_encode(file_get_contents(public_path('/qrcode/qrcode.svg')));
-
       $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 
                               'isRemoteEnabled' => true,
                               'chroot' => public_path('qrcode/')])
                               ->loadView('pdf/comprobante',['image' => $image]);
 
       return $pdf->download('name.pdf');
+    }
+
+    public function generarQr(){
+      $datosBase64 = base64_encode('{"ver":1,"fecha":"2020-10-13","cuit":30000000007,"ptoVta":10,"tipoCmp":1,"nroCmp":94,"importe":12100,"moneda":"DOL","ctz":65,"tipoDocRec":80,"nroDocRec":20000000001,"tipoCodAut":"E","codAut":70417054367476}');
+      QrCode::generate('https://www.afip.gob.ar/fe/qr/?p='.$datosBase64, '../public/qrcode/qrcode.svg');
     }
 
 }
