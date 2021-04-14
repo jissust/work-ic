@@ -15,10 +15,7 @@
     <section>
       <div class="container">
         <div class="table-responsive">
-          <table class="table 
-                        table-hover 
-                        table-responsive
-                        table-striped">
+          <table class="table table-hover table-responsive table-striped">
             <thead class="table-dark">
               <tr>
                 <th scope="col">Item</th>
@@ -49,12 +46,77 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">
-                        {{ $v->codigoInternoComprobante }}
+                        #{{ $v->codigoInternoComprobante }}
                       </h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      ...
+                      
+                      <div class="container">
+                        <div class="row py-2">
+                          <div class="col-6">
+                            <span class="fw-bold">Codigo interno empresa</span>
+                          </div> 
+                          <div class="col-6">
+                            {{ $v->codigoInternoEmpresa }}
+                          </div> 
+                        </div>
+                        <div class="row py-2">
+                          <div class="col-6">
+                            <span class="fw-bold">Codigo tipo comprobante</span>
+                          </div> 
+                          <div class="col-6">
+                            {{ $v->codigoTipoComprobante }}
+                          </div> 
+                        </div>
+                        <div class="row py-2">
+                          <div class="col-6">
+                            <span class="fw-bold">Centro facturación</span>
+                          </div> 
+                          <div class="col-6">
+                            {{ $v->centroFacturacion }}
+                          </div> 
+                        </div>
+                      </div>
+                      <div class="container">
+                        <div class="row">
+                            <h3>Items</h1>
+                        </div>
+                      </div>  
+                      @foreach($v->items as $key => $value)
+                        <div class="container">
+                          <div class="row py-2">
+                            <div class="col-6">
+                            <span class="fw-bold">
+                              #
+                            </span>
+                            </div> 
+                            <div class="col-6">
+                              {{ $value->codigoItemComprobanteFacturacion }} 
+                            </div>
+                          </div>
+                          <div class="row py-2">
+                            <div class="col-6">
+                              <span class="fw-bold">
+                                Codigo interno material
+                              </span>
+                            </div> 
+                            <div class="col-6">
+                              {{ $value->codigoInternoMaterial }}
+                            </div>
+                          </div>
+                          <div class="row py-2">
+                            <div class="col-6">
+                              <span class="fw-bold">
+                                Cantidad
+                              </span>
+                            </div> 
+                            <div class="col-6">
+                              {{ $value->cantidad }}
+                            </div>
+                          </div>
+                        </div>
+                      @endforeach  
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
