@@ -12,7 +12,7 @@ class ComprobanteController extends Controller
 {
     public function index()
     {
-        $comprobanteItem = DB::table('ComprobanteFacturacionItem')->get();
+        $comprobanteItem = DB::table('Comprobante')->get();
         return view('index',compact('comprobanteItem'));
     }
 
@@ -27,7 +27,6 @@ class ComprobanteController extends Controller
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 
                                 'isRemoteEnabled' => true,
                                 'chroot' => public_path('qrcode/')])
-                                /*->setOptions(['tempDir'=>'public_path()'])*/
                                 ->loadView('pdf/comprobante',['image' => $image]);
 
         return $pdf->download('name.pdf');

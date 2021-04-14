@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Interforming</title>
   </head>
   <body>
     
@@ -22,30 +22,48 @@
             <thead class="table-dark">
               <tr>
                 <th scope="col">Item</th>
-                <th scope="col">Comprobante</th>
-                <th scope="col">Interno</th>
-                <th scope="col">cantidad</th>
+                <th scope="col">Codigo Interno Empresa</th>
+                <th scope="col">codigo Tipo Comprobante</th>
+                <th scope="col">Centro Facturación</th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
               @foreach( $comprobanteItem as $k => $v )  
               <tr>
-                <th scope="row">{{ $v->codigoItemComprobanteFacturacion }}</th>
-                <td>{{ $v->codigoInternoComprobanteFacturacion }}</td>
-                <td>{{ $v->codigoInternoMaterial }}</td>
-                <td>{{ $v->cantidad }}</td>
-                <td>
-                  <form action="/detalle" method="POST">
-                    @csrf
-                    <button class="btn btn-info">
-                      Ver Detalle
-                    </button>
-                  </form>
-                  <a class="btn btn-danger" href="/descargar">
+                <th scope="row">{{ $v->codigoInternoComprobante }}</th>
+                <td>{{ $v->codigoInternoEmpresa }}</td>
+                <td>{{ $v->codigoTipoComprobante }}</td>
+                <td>{{ $v->centroFacturacion }}</td>
+                <td class="d-flex">
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalle{{$k}}">
+                    Detalle
+                  </button> 
+                  <a class="btn btn-danger ms-2" href="/descargar">
                     Pdf
                   </a>
                 </td>
+
+                <div class="modal fade" id="modalDetalle{{$k}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        {{ $v->codigoInternoComprobante }}
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      ...
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cerrar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
               </tr>
               @endforeach
             </tbody>
